@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,7 +25,7 @@ namespace MetaData
             builder.AppendLine($"Name : {type.Name}");
             builder.AppendLine($"Namespace : {type.Namespace}");
             builder.AppendLine($"Asse : {type.Namespace}");
-            if(type.BaseType != null)
+            if (type.BaseType != null)
                 builder.AppendLine($"Base type : {type.BaseType}");
             builder.AppendLine($"Is Public : {type.IsPublic}");
             builder.AppendLine($"Is Class : {type.IsClass}");
@@ -42,7 +43,25 @@ namespace MetaData
             }
 
             return builder.ToString();
-        } 
+        }
+
+        public string LoadProperties()
+        {
+            StringBuilder builder = new StringBuilder();
+            PropertyInfo[] propertyInfos = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var prop in propertyInfos)
+            {
+                if (prop.CanRead && prop.CanWrite)
+                    builder.AppendLine($"public {prop.GetType().Name} {prop.Name} {{get; set;}}");
+                else if (prop.CanRead && !prop.CanWrite)
+                    builder.AppendLine($"public {prop.GetType().Name} {prop.Name} {{get;}}");
+                else
+                    builder.AppendLine($"public {prop.GetType().Name} {prop.Name} {{set;}}");
+
+            }
+
+            return builder.ToString();
+        }
     }
 
     public class LoadMetaData<T> : LoadMetaData
