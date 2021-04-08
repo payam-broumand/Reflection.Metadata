@@ -1,0 +1,5 @@
+C:\Users\Payam\Desktop\Reflection2\MetaData\obj\Debug\MetaData.csproj.CoreCompileInputs.cache
+C:\Users\Payam\Desktop\Reflection2\MetaData\bin\Debug\MetaData.dll
+C:\Users\Payam\Desktop\Reflection2\MetaData\bin\Debug\MetaData.pdb
+C:\Users\Payam\Desktop\Reflection2\MetaData\obj\Debug\MetaData.dll
+C:\Users\Payam\Desktop\Reflection2\MetaData\obj\Debug\MetaData.pdb

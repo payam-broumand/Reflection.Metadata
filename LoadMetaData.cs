@@ -39,7 +39,7 @@ namespace MetaData
             builder.AppendLine("----- Implemented Interfaces");
             foreach (var inter in type.GetInterfaces())
             {
-                builder.AppendLine($"        implemeted {inter.Name}")
+                builder.AppendLine($"        implemeted {inter.Name}");
             }
 
             return builder.ToString();
