@@ -15,7 +15,7 @@ namespace MetaData
             this.type = type;
         }
 
-        public string LoadProperties()
+        public string LoadGeneralTypeInfo()
         {
             StringBuilder builder = new StringBuilder();
             builder.AppendLine("-------------------------------------");
@@ -42,7 +42,7 @@ namespace MetaData
             }
 
             return builder.ToString();
-        }
+        } 
     }
 
     public class LoadMetaData<T> : LoadMetaData
