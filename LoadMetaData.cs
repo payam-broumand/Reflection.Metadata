@@ -49,6 +49,9 @@ namespace MetaData
         {
             StringBuilder builder = new StringBuilder();
             PropertyInfo[] propertyInfos = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            builder.AppendLine("-------------------------------------");
+            builder.AppendLine("Type Properties");
+            builder.AppendLine("--------------------------------------");
             foreach (var prop in propertyInfos)
             {
                 if (prop.CanRead && prop.CanWrite)
@@ -58,6 +61,28 @@ namespace MetaData
                 else
                     builder.AppendLine($"public {prop.GetType().Name} {prop.Name} {{set;}}");
 
+            }
+
+            return builder.ToString();
+        }
+
+        public string LoadMethods()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine("-------------------------------------");
+            builder.AppendLine("Type Methods");
+            builder.AppendLine("--------------------------------------");
+            MethodInfo[] methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            foreach (var method in methods)
+            {
+                if(method.IsSpecialName) continue;
+                builder.AppendLine($"public {method.ReturnType} {method.Name}");
+                builder.Append("(");
+                foreach (var parameter in method.GetParameters())
+                {
+                    builder.Append($"{parameter.ParameterType.Name} {parameter.Name}, ");
+                }
+                builder.Append(")");
             }
 
             return builder.ToString();
