@@ -24,7 +24,7 @@ namespace MetaData
             builder.AppendLine("--------------------------------------");
             builder.AppendLine($"Name : {type.Name}");
             builder.AppendLine($"Namespace : {type.Namespace}");
-            builder.AppendLine($"Asse : {type.Namespace}");
+            builder.AppendLine($"Assebmly : {type.Assembly.FullName}");
             if (type.BaseType != null)
                 builder.AppendLine($"Base type : {type.BaseType}");
             builder.AppendLine($"Is Public : {type.IsPublic}");
@@ -55,11 +55,11 @@ namespace MetaData
             foreach (var prop in propertyInfos)
             {
                 if (prop.CanRead && prop.CanWrite)
-                    builder.AppendLine($"public {prop.GetType().Name} {prop.Name} {{get; set;}}");
+                    builder.AppendLine($"public {prop.PropertyType.Name} {prop.Name} {{get; set;}}");
                 else if (prop.CanRead && !prop.CanWrite)
-                    builder.AppendLine($"public {prop.GetType().Name} {prop.Name} {{get;}}");
+                    builder.AppendLine($"public {prop.PropertyType.Name} {prop.Name} {{get;}}");
                 else
-                    builder.AppendLine($"public {prop.GetType().Name} {prop.Name} {{set;}}");
+                    builder.AppendLine($"public {prop.PropertyType.Name} {prop.Name} {{set;}}");
 
             }
 
@@ -76,13 +76,13 @@ namespace MetaData
             foreach (var method in methods)
             {
                 if(method.IsSpecialName) continue;
-                builder.AppendLine($"public {method.ReturnType} {method.Name}");
+                builder.Append($"public {method.ReturnType} {method.Name}");
                 builder.Append("(");
                 foreach (var parameter in method.GetParameters())
                 {
                     builder.Append($"{parameter.ParameterType.Name} {parameter.Name}, ");
                 }
-                builder.Append(")");
+                builder.AppendLine(")"); 
             }
 
             return builder.ToString();
